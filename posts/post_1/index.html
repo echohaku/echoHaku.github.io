@@ -1,0 +1,92 @@
+<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>使用 Hugo GitHub 建立個人部落格 | ECHOHAKU BLOG</title>
+<link rel=icon href=favicon.svg sizes=any type=image/svg+xml><meta property="og:url" content="https://echoHaku.github.io/posts/post_1/"><meta property="og:site_name" content="ECHOHAKU BLOG"><meta property="og:title" content="使用 Hugo GitHub 建立個人部落格"><meta property="og:description" content="起源與目的 在 2025 年 5 月的這段時間，我正經歷一段迷茫期。思考了許久，試著找出一種方式，能讓自己對所理解與學習的知識更加有自信，也希望能夠逐步建立起屬於自己的知識體系。最終，我決定開始寫部落格，分享自己學習到的內容、遇到的問題、解決的過程，以及個人的思考與心得。
+雖然不知道這樣的分享能夠持續多久，但我希望能盡可能長久地維持這個習慣，把自己腦中吸收的知識透過文字整理出來。經過一番資料查找後，我決定透過 Hugo 搭配 GitHub 來實踐這個想法。
+選擇這個方法，是因為它不需要太多繁瑣的 coding，也不必花太多時間糾結於主題與配色的選擇，對我來說是個簡單又實用的開始。
+以下是我所使用的建置方式與流程。
+實作 Stage 1. 工具準備工具準備 安裝 Git (可選擇搭配 視覺化GUI工具) 安裝 Hugo 註冊 GitHub 帳號 選定一個 Hugo theme Stage 2. 建立並設定Hugo專案 先在GitHub上創建兩個repository，並將其clone到地端 一個取名為blogger，用來儲存網站原始碼與內容（文章、圖片等） 一個則是取名為 username.github.io，用以儲存hugo為我們產生的靜態內容
+初始化Hugo專案
+cd blogger hugo new site sitename 此命令會在 blogger/sitename 下建立 Hugo 專案。會看到 /blogger/sitename/ 底下許多的子folder
+安裝主題 (theme) 在 hugo themes 上選定好一個主題，可以看到 “download” 主題的按鈕，通常可以連結到該theme的github page
+cd sitename git submodule add 該theme的git themes/rusty-typewriter 這個指令的目的是把該主題鑲嵌的概念到你的repository上，當這個主題的作者有所變動，我們這邊也可以有最新的commit結果，可以確認 .gitmodules 的檔案是否有正確的新增。 修改 sitename/hugo.toml"><meta property="og:locale" content="en_us"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2025-05-16T15:36:43+08:00"><meta property="article:modified_time" content="2025-05-16T15:36:43+08:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="使用 Hugo GitHub 建立個人部落格"><meta name=twitter:description content="起源與目的 在 2025 年 5 月的這段時間，我正經歷一段迷茫期。思考了許久，試著找出一種方式，能讓自己對所理解與學習的知識更加有自信，也希望能夠逐步建立起屬於自己的知識體系。最終，我決定開始寫部落格，分享自己學習到的內容、遇到的問題、解決的過程，以及個人的思考與心得。
+雖然不知道這樣的分享能夠持續多久，但我希望能盡可能長久地維持這個習慣，把自己腦中吸收的知識透過文字整理出來。經過一番資料查找後，我決定透過 Hugo 搭配 GitHub 來實踐這個想法。
+選擇這個方法，是因為它不需要太多繁瑣的 coding，也不必花太多時間糾結於主題與配色的選擇，對我來說是個簡單又實用的開始。
+以下是我所使用的建置方式與流程。
+實作 Stage 1. 工具準備工具準備 安裝 Git (可選擇搭配 視覺化GUI工具) 安裝 Hugo 註冊 GitHub 帳號 選定一個 Hugo theme Stage 2. 建立並設定Hugo專案 先在GitHub上創建兩個repository，並將其clone到地端 一個取名為blogger，用來儲存網站原始碼與內容（文章、圖片等） 一個則是取名為 username.github.io，用以儲存hugo為我們產生的靜態內容
+初始化Hugo專案
+cd blogger hugo new site sitename 此命令會在 blogger/sitename 下建立 Hugo 專案。會看到 /blogger/sitename/ 底下許多的子folder
+安裝主題 (theme) 在 hugo themes 上選定好一個主題，可以看到 “download” 主題的按鈕，通常可以連結到該theme的github page
+cd sitename git submodule add 該theme的git themes/rusty-typewriter 這個指令的目的是把該主題鑲嵌的概念到你的repository上，當這個主題的作者有所變動，我們這邊也可以有最新的commit結果，可以確認 .gitmodules 的檔案是否有正確的新增。 修改 sitename/hugo.toml"><link rel=stylesheet href=/css/root.min.0e732b812b9751962e01a7c4798a1211cd5f8ac8abec7f99793fe306989e459f.css integrity="sha256-DnMrgSuXUZYuAafEeYoSEc1fisir7H+ZeT/jBpieRZ8=" crossorigin=anonymous><link rel=stylesheet href=/css/bundle.min.e139b0e3b3aff8f0e8e0272554b671a06c857a42278b36c539d96c69ddee2ca2.css integrity="sha256-4Tmw47Ov+PDo4CclVLZxoGyFekInizbFOdlsad3uLKI=" crossorigin=anonymous><script src=/js/bundle.995e4ec99401021e081ec256bee66154ef7f4e5136809432513b2e6d014b4b1d.js integrity="sha256-mV5OyZQBAh4IHsJWvuZhVO9/TlE2gJQyUTsubQFLSx0=" crossorigin=anonymous></script><script defer src=/js/search/flexsearch.compact.64594b125f7b78bdf4fa8316955922bbebb1cd6baef3f16654bfca20309f18f8.js integrity="sha256-ZFlLEl97eL30+oMWlVkiu+uxzWuu8/FmVL/KIDCfGPg="></script><script defer src=/js/search/search.1d980f84df11f3eb7c8c5f17f541d49a0611608df179dd74fa7f06225eb56ace.js integrity="sha256-HZgPhN8R8+t8jF8X9UHUmgYRYI3xed10+n8GIl61as4="></script><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel=stylesheet><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel=stylesheet></head><body class=notransition><div id=container><header id=main-header><div role=navigation aria-label=Main><div class=nav-left><a href=https://echoHaku.github.io/ style=color:inherit>ECHOHAKU BLOG</a></div><div class=nav-right><div style=position:absolute;width:0;height:0><div id=nav-dropdown-menu class=hidden href=#><div class=nav-item><a aria-current=true class=ancestor href=/posts/>Posts</a></div></div></div><a id=nav-dropdown-button href=#><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 6H20M4 12H20M4 18H20" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div id=nav-menu><div class=nav-item><a aria-current=true class=ancestor href=/posts/>Posts</a></div></div><a id=theme-switcher href=#><svg class="light-icon" viewBox="0 0 24 24" fill="none"><path d="M12 3V4m0 16v1M4 12H3M6.31412 6.31412 5.5 5.5m12.1859.81412L18.5 5.5M6.31412 17.69 5.5 18.5001M17.6859 17.69 18.5 18.5001M21 12H20m-4 0c0 2.2091-1.7909 4-4 4-2.20914.0-4-1.7909-4-4 0-2.20914 1.79086-4 4-4 2.2091.0 4 1.79086 4 4z" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="dark-icon" viewBox="0 0 24 24" fill="none"><path d="M3.32031 11.6835c0 4.9706 4.02944 9 8.99999 9 3.7872.0 7.028-2.3392 8.3565-5.6515C19.6402 15.4486 18.5059 15.6834 17.3203 15.6834c-4.9706.0-8.99999-4.0294-8.99999-8.99998C8.32031 5.50338 8.55165 4.36259 8.96453 3.32996 5.65605 4.66028 3.32031 7.89912 3.32031 11.6835z" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div></header><div class="flex grow"><div id=main-pane><main id=main-content><div class=single-header><ol class=breadcrumbs itemscope itemtype=https://schema.org/BreadcrumbList><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemprop=item href=https://echoHaku.github.io/><span itemprop=name>Home</span>
+</a><meta itemprop=position content='1'></li><span>&nbsp»&nbsp</span><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemprop=item href=https://echoHaku.github.io/posts/><span itemprop=name>Posts</span>
+</a><meta itemprop=position content='2'></li><span>&nbsp»&nbsp</span></ol><h1>使用 Hugo GitHub 建立個人部落格</h1><time class=dim datetime=2025-05-16T15:36:43+08:00>May 16, 2025</time></div><section class=page-section><h2 id=起源與目的>起源與目的</h2><p>在 2025 年 5 月的這段時間，我正經歷一段迷茫期。思考了許久，試著找出一種方式，能讓自己對所理解與學習的知識更加有自信，也希望能夠逐步建立起屬於自己的知識體系。最終，我決定開始寫部落格，分享自己學習到的內容、遇到的問題、解決的過程，以及個人的思考與心得。</p><p>雖然不知道這樣的分享能夠持續多久，但我希望能盡可能長久地維持這個習慣，把自己腦中吸收的知識透過文字整理出來。經過一番資料查找後，我決定透過 Hugo 搭配 GitHub 來實踐這個想法。</p><p>選擇這個方法，是因為它不需要太多繁瑣的 coding，也不必花太多時間糾結於主題與配色的選擇，對我來說是個簡單又實用的開始。</p><p>以下是我所使用的建置方式與流程。</p><h2 id=實作>實作</h2><h3 id=stage-1-工具準備工具準備>Stage 1. 工具準備工具準備</h3><ol><li>安裝 Git (可選擇搭配 視覺化GUI工具)</li><li>安裝 Hugo</li><li>註冊 GitHub 帳號</li><li>選定一個 Hugo theme</li></ol><h3 id=stage-2-建立並設定hugo專案>Stage 2. 建立並設定Hugo專案</h3><ol><li><p>先在GitHub上創建兩個repository，並將其clone到地端
+一個取名為<code>blogger</code>，用來儲存網站原始碼與內容（文章、圖片等） 一個則是取名為 <code>username.github.io</code>，用以儲存hugo為我們產生的靜態內容</p></li><li><p>初始化Hugo專案</p><pre tabindex=0><code> cd blogger
+ hugo new site sitename
+</code></pre><p>此命令會在 <code>blogger/sitename</code> 下建立 Hugo 專案。會看到 /blogger/sitename/ 底下許多的子folder</p></li><li><p>安裝主題 (theme)
+在 hugo themes 上選定好一個主題，可以看到 &ldquo;download&rdquo; 主題的按鈕，通常可以連結到該theme的github page</p><pre tabindex=0><code> cd sitename
+ git submodule add 該theme的git themes/rusty-typewriter
+</code></pre><p>這個指令的目的是把該主題鑲嵌的概念到你的repository上，當這個主題的作者有所變動，我們這邊也可以有最新的commit結果，可以確認 .gitmodules 的檔案是否有正確的新增。
+修改 <code>sitename/hugo.toml</code></p><pre tabindex=0><code> baseURL = https://username.github.io/
+ languageCode = &#34;en-us&#34;
+ title = &#39;blog的名稱&#39;
+ theme = &#39;theme name&#39;
+</code></pre></li><li><p>預覽部落格</p><pre tabindex=0><code>cd sitename
+hugo server
+</code></pre><p>會看到 blogger/sitename/public的資料夾產生，這裡就是所有靜態檔案存在的地方。
+瀏覽 http://localhost:1313 確認網站預覽狀況。</p></li><li><p>撰寫內容</p><pre tabindex=0><code>cd sitename
+hugo new posts/postname.md
+</code></pre><p>這會根據 /sitename/archetypes/default.md 建立文章，實際產生的內容檔案位於 sitename/content/posts/postname.md，可修改其中的 title、date、draft 與文章內容。</p></li></ol><h3 id=stage-3-github-actions-自動部屬>Stage 3. GitHub Actions 自動部屬</h3><ol><li>建立GitHub Token 透過 <a href=https://github.com/settings/tokens>GitHub Token</a> ，按下「generate new token(classic)」去產生token，權限設定repo、workflow。建立後務必複製紀錄，因為此token在離開畫面後將不可再次查看。</li><li>設定 Secrets 前往 blogger repository -> Settings -> Secrets and Varaibale -> Actions -> New repository secret -> name: DEPLOY_TOKEN，將先前複製的Token放在Secrets當中。</li><li>設定 GitHub Actions Workflow
+建立 blogger/.github/workflows/deploy.yml<pre tabindex=0><code> name: Deploy Hugo to GitHub Pages Repo
+
+ on:
+ push:
+     branches:
+     - main
+
+ jobs:
+ deploy:
+     runs-on: ubuntu-latest
+
+     steps:
+     - name: Checkout source repo
+     uses: actions/checkout@v4
+     with:
+         submodules: recursive
+
+     - name: Setup Hugo
+     uses: peaceiris/actions-hugo@v2
+     with:
+         hugo-version: &#39;latest&#39;
+         extended: true
+
+     - name: Build the site
+     run: cd $sitename &amp;&amp; hugo --minify
+
+     - name: Deploy to $username.github.io repo
+     uses: peaceiris/actions-gh-pages@v3
+     with:
+         personal_token: ${{ secrets.DEPLOY_TOKEN }}
+         external_repository: $username/$username.github.io
+         publish_dir: ./$sitename/public
+         publish_branch: main
+         user_name: $username
+         user_email: $usermail
+         commit_message: ${{ github.commit_message || &#39;Deploy from blogger repo&#39; }}
+</code></pre>記得將所有$開頭的變數請自動換成自己的直接取代（包括$username, $sitename, $usermail）
+另外with: submodules: recursive => 去拉.gitmodules裡面所設定的其他git repository資訊</li><li>忽略public 目錄版本控制
+在<code>blogger/.gitignore</code>加入<code>/sitename/public/</code>
+避免將 /public 目錄內容加入版本控制，讓它完全由 GitHub Actions 負責處理</li><li>Commit & Push 原始碼
+將原始碼（含設定、文章）推送至 GitHub：<pre tabindex=0><code>git add .
+git commit -m &#34;init hugo blog&#34;
+git push origin main
+</code></pre></li></ol><h3 id=stage-4-驗證部屬>Stage 4. 驗證部屬</h3><ol><li>前往 GitHub → blogger → Actions 檢查工作流程是否成功執行</li><li>開啟 <a href>https://username.github.io/</a>，應可看到部落格成功部署</li></ol><h2 id=recap-sitename架構>Recap sitename架構</h2><pre tabindex=0><code>blogger/
+├── sitename/       ← Hugo 專案實際位置
+│   ├── hugo.toml   ← (config.toml)
+│   ├── content/
+│   └── ...
+├── .github/
+│   └── workflows/
+│       └── deploy.yml
+├── .git
+├── .gitmodules
+└── .gitignore
+</code></pre><h2 id=心得>心得</h2><p>在實際動手操作的過程中，我遇到的錯誤比預期中多出許多，花費的時間也自然超出了原本的估計。雖然整體過程中不免感到挫折，但我很慶幸自己沒有因此放棄，而是一步一步地解決問題，最終順利完成了部落格的建立。&#x1f37b;</p><p>萬事起頭難，尤其是在從零開始學習與實作的情況下，遇到預料之外的困難與錯誤幾乎是必然的。不過，這次的經驗讓我深刻體會到：犯錯其實沒有想像中那麼可怕。只要願意冷靜面對、查找資料並持續嘗試，問題終究是能被一一克服的。</p><p>過程中，大多數的錯誤其實都來自一些細節——像是在錯誤的位置執行了正確的指令，或是整體架構理解不夠清晰。這些錯誤往往令人沮喪，但只要靜下心來、仔細觀察，就能找出問題所在並修正它。</p><p>此外，在實作過程中我也發現，不同的 Hugo 主題都有其獨特的功能設計，各有巧思，其實非常值得深入研究。不過，現階段我已經達成了對這個部落格初始化階段的期望，因此先在這裡畫下一個小小的句點。未來若有更多時間與精力，我相信自己會更深入探索並拓展這個部落格的可能性！</p><p>我相信，最困難的一關已經跨越。也期待在下一篇文章中，能繼續與大家分享更多學習過程與心得！&#x1f604;</p><p>感謝你閱讀到這裡，衷心感謝你的陪伴與支持！&#x1f647;&#x1f647;&#x1f647;</p></section></main><footer id=main-footer><div class=footer><a href=#>Scroll to Top</a><div class=footer-copyright><div class=dim>© 2025</div><div>Made with ❤️ and powered by <a href=https://github.com/math-queiroz/rusty-typewriter target=_blank>Rusty Typewriter</a> theme for <a href=https://gohugo.io/ target=_blank>Hugo</a></div></div></div></footer></div><aside id=side-pane class=side-sticky><div class=side-details><span>318 words</span>
+<span>6 - 7 minutes read</span></div><h3>Table Of Contents</h3><nav id=TableOfContents><ul><li><a href=#起源與目的>起源與目的</a></li><li><a href=#實作>實作</a><ul><li><a href=#stage-1-工具準備工具準備>Stage 1. 工具準備工具準備</a></li><li><a href=#stage-2-建立並設定hugo專案>Stage 2. 建立並設定Hugo專案</a></li><li><a href=#stage-3-github-actions-自動部屬>Stage 3. GitHub Actions 自動部屬</a></li><li><a href=#stage-4-驗證部屬>Stage 4. 驗證部屬</a></li></ul></li><li><a href=#recap-sitename架構>Recap sitename架構</a></li><li><a href=#心得>心得</a></li></ul></nav></aside></div></div></body></html>
