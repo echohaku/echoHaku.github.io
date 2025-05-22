@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on ECHOHAKU BLOG</title><link>https://echoHaku.github.io/posts/</link><description>Recent content in Posts on ECHOHAKU BLOG</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 22 May 2025 08:57:55 +0800</lastBuildDate><atom:link href="https://echoHaku.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>如何為未來的自己做準備：〈You Don’t Actually Know What Your Future Self Wants〉</title><link>https://echoHaku.github.io/posts/post_2/</link><pubDate>Thu, 22 May 2025 08:57:55 +0800</pubDate><guid>https://echoHaku.github.io/posts/post_2/</guid><description>&lt;h2 id="why-this">Why this?&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ted Talk on ECHOHAKU BLOG</title><link>https://echoHaku.github.io/tags/ted-talk/</link><description>Recent content in Ted Talk on ECHOHAKU BLOG</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 22 May 2025 08:57:55 +0800</lastBuildDate><atom:link href="https://echoHaku.github.io/tags/ted-talk/index.xml" rel="self" type="application/rss+xml"/><item><title>如何為未來的自己做準備：〈You Don’t Actually Know What Your Future Self Wants〉</title><link>https://echoHaku.github.io/posts/post_2/</link><pubDate>Thu, 22 May 2025 08:57:55 +0800</pubDate><guid>https://echoHaku.github.io/posts/post_2/</guid><description>&lt;h2 id="why-this">Why this?&lt;/h2>
 &lt;p>最近總在思考 &lt;strong>「該如何為未來的自己鋪路？」&lt;/strong>&lt;br>
 列出了許多可以學習的方向、可以嘗試的事情，目的僅是為了讓未來換工作、轉職能更順利。&lt;br>
 但在擬定這些「對未來有幫助的選擇」時，心裡又冒出了一個聲音：&lt;strong>這真的是我要的嗎？&lt;/strong>&lt;/p>
@@ -48,36 +48,4 @@
 &lt;/ol>
 &lt;h2 id="finally">Finally&lt;/h2>
 &lt;p>我們無法預測未來，也無法保證現在的選擇一定是對的。但這不代表我們什麼都不能做。我們能做的，是以彈性與謙遜的心態前進，保留空間給那個還沒出現的「我」。
-想起來之前看到的一個論點&lt;/p></description></item><item><title>使用 Hugo GitHub 建立個人部落格</title><link>https://echoHaku.github.io/posts/post_1/</link><pubDate>Fri, 16 May 2025 15:36:43 +0800</pubDate><guid>https://echoHaku.github.io/posts/post_1/</guid><description>&lt;h2 id="起源與目的">起源與目的&lt;/h2>
-&lt;p>在 2025 年 5 月的這段時間，我正經歷一段迷茫期。思考了許久，試著找出一種方式，能讓自己對所理解與學習的知識更加有自信，也希望能夠逐步建立起屬於自己的知識體系。最終，我決定開始寫部落格，分享自己學習到的內容、遇到的問題、解決的過程，以及個人的思考與心得。&lt;/p>
-&lt;p>雖然不知道這樣的分享能夠持續多久，但我希望能盡可能長久地維持這個習慣，把自己腦中吸收的知識透過文字整理出來。經過一番資料查找後，我決定透過 Hugo 搭配 GitHub 來實踐這個想法。&lt;/p>
-&lt;p>選擇這個方法，是因為它不需要太多繁瑣的 coding，也不必花太多時間糾結於主題與配色的選擇，對我來說是個簡單又實用的開始。&lt;/p>
-&lt;p>以下是我所使用的建置方式與流程。&lt;/p>
-&lt;h2 id="實作">實作&lt;/h2>
-&lt;h3 id="stage-1-工具準備工具準備">Stage 1. 工具準備工具準備&lt;/h3>
-&lt;ol>
-&lt;li>安裝 Git (可選擇搭配 視覺化GUI工具)&lt;/li>
-&lt;li>安裝 Hugo&lt;/li>
-&lt;li>註冊 GitHub 帳號&lt;/li>
-&lt;li>選定一個 Hugo theme&lt;/li>
-&lt;/ol>
-&lt;h3 id="stage-2-建立並設定hugo專案">Stage 2. 建立並設定Hugo專案&lt;/h3>
-&lt;ol>
-&lt;li>
-&lt;p>先在GitHub上創建兩個repository，並將其clone到地端&lt;!-- raw HTML omitted -->
-一個取名為&lt;code>blogger&lt;/code>，用來儲存網站原始碼與內容（文章、圖片等） &lt;!-- raw HTML omitted -->
-一個則是取名為 &lt;code>username.github.io&lt;/code>，用以儲存hugo為我們產生的靜態內容&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>初始化Hugo專案&lt;/p>
-&lt;pre tabindex="0">&lt;code> cd blogger
- hugo new site sitename
-&lt;/code>&lt;/pre>&lt;p>此命令會在 &lt;code>blogger/sitename&lt;/code> 下建立 Hugo 專案。會看到 /blogger/sitename/ 底下許多的子folder&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>安裝主題 (theme)
-在 hugo themes 上選定好一個主題，可以看到 &amp;ldquo;download&amp;rdquo; 主題的按鈕，通常可以連結到該theme的github page&lt;/p>
-&lt;pre tabindex="0">&lt;code> cd sitename
- git submodule add 該theme的git themes/rusty-typewriter
-&lt;/code>&lt;/pre>&lt;p>這個指令的目的是把該主題鑲嵌的概念到你的repository上，當這個主題的作者有所變動，我們這邊也可以有最新的commit結果，可以確認 .gitmodules 的檔案是否有正確的新增。
-修改 &lt;code>sitename/hugo.toml&lt;/code>&lt;/p></description></item></channel></rss>
+想起來之前看到的一個論點&lt;/p></description></item></channel></rss>
