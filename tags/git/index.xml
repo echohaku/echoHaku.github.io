@@ -1,4 +1,26 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Git on ECHOHAKU BLOG</title><link>https://echoHaku.github.io/tags/git/</link><description>Recent content in Git on ECHOHAKU BLOG</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 16 Oct 2025 09:57:53 +0800</lastBuildDate><atom:link href="https://echoHaku.github.io/tags/git/index.xml" rel="self" type="application/rss+xml"/><item><title>Git 系列分享 - p.5 檔案追蹤並納入紀錄！（git status、git add）</title><link>https://echoHaku.github.io/posts/post_git_7/</link><pubDate>Thu, 16 Oct 2025 09:57:53 +0800</pubDate><guid>https://echoHaku.github.io/posts/post_git_7/</guid><description>&lt;p&gt;在&lt;a href="https://echoHaku.github.io/posts/post_git_6/"&gt;Git 系列分享 - p.4 你是誰？git config 的配置與層級&lt;/a&gt;完成身分設定後，&lt;br&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Git on ECHOHAKU BLOG</title><link>https://echoHaku.github.io/tags/git/</link><description>Recent content in Git on ECHOHAKU BLOG</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Wed, 22 Oct 2025 09:24:01 +0800</lastBuildDate><atom:link href="https://echoHaku.github.io/tags/git/index.xml" rel="self" type="application/rss+xml"/><item><title>Git 系列分享 - p.6 正式提交一個commit囉</title><link>https://echoHaku.github.io/posts/post_git_8/</link><pubDate>Wed, 22 Oct 2025 09:24:01 +0800</pubDate><guid>https://echoHaku.github.io/posts/post_git_8/</guid><description>&lt;p&gt;在&lt;a href="https://echoHaku.github.io/posts/post_git_7/"&gt;Git 系列分享 - p.5 檔案追蹤並納入紀錄！（git status、git add）&lt;/a&gt;中，我們學會了如何使用 &lt;code&gt;git add&lt;/code&gt; 將變更從工作目錄移動到暫存區（Staging Area），完成變更的打包。&lt;/p&gt;
+&lt;p&gt;現在，我們將進行工作流程中的最後一步：&lt;strong&gt;正式提交（Commit）&lt;/strong&gt;，為這次變更留下一個永久且不可磨滅的歷史快照。&lt;/p&gt;
+&lt;h2 id="git-commit為變更留下永久快照"&gt;&lt;code&gt;git commit&lt;/code&gt;：為變更留下永久快照&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;git commit&lt;/code&gt; 是 Git 流程中&lt;strong&gt;最關鍵的動作&lt;/strong&gt;。它會將暫存區的快照&lt;strong&gt;永久寫入&lt;/strong&gt;你的 Git 倉庫 (Repository)，形成專案歷史上的一個&lt;strong&gt;新版本節點&lt;/strong&gt;。&lt;/p&gt;
+&lt;h3 id="什麼是一個-commit"&gt;什麼是一個 Commit？&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;定義：&lt;/strong&gt; 一個 Commit 就是一個「&lt;strong&gt;有意義的、邏輯完整的工作單元&lt;/strong&gt;」。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;劃分原則：&lt;/strong&gt; 我們應該以「目的」來劃分 Commit，而不是以「時間」。
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;重點強調：&lt;/strong&gt; Commit 的大小並不重要！它可以是一個&lt;strong&gt;微小的 Bug 修正（小版本）&lt;/strong&gt;，也可以是一個&lt;strong&gt;完整的核心功能開發（大版本）&lt;/strong&gt;。關鍵在於：這個 Commit 必須只包含&lt;strong&gt;單一目的的變更&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;好的 Commit：&lt;/strong&gt; 專注於單一目標。例如：「修正使用者登入頁面的 CSS 樣式」或「新增資料庫連線功能」。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;不好的 Commit：&lt;/strong&gt; 包含了不相關的變更。例如：「修正 Bug + 調整排版 + 實驗性新功能」。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;重要性：&lt;/strong&gt; 當你確定暫存區的變更已經完成了一個&lt;strong&gt;獨立的任務&lt;/strong&gt;時，才應該執行 Commit。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="commit-message-的重要性"&gt;Commit Message 的重要性&lt;/h2&gt;
+&lt;p&gt;Commit Message 就像是這個版本變動的「&lt;strong&gt;摘要與目的&lt;/strong&gt;」，它是版本歷史中最重要的註解。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;給未來的自己看：&lt;/strong&gt; 當幾個月後，你需要追溯某個功能或 Bug 的來源時，清晰的訊息能讓你快速定位。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;給團隊成員看：&lt;/strong&gt; 隊友能透過訊息快速了解你做了什麼，避免重複工作或產生衝突。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;💡 優秀的 Commit Message 寫法建議：&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>Git 系列分享 - p.5 檔案追蹤並納入紀錄！（git status、git add）</title><link>https://echoHaku.github.io/posts/post_git_7/</link><pubDate>Thu, 16 Oct 2025 09:57:53 +0800</pubDate><guid>https://echoHaku.github.io/posts/post_git_7/</guid><description>&lt;p&gt;在&lt;a href="https://echoHaku.github.io/posts/post_git_6/"&gt;Git 系列分享 - p.4 你是誰？git config 的配置與層級&lt;/a&gt;完成身分設定後，&lt;br&gt;
 我們就要進入Git的核心工作流程了！&lt;br&gt;
 今天的主題圍繞在「&lt;strong&gt;追蹤變動&lt;/strong&gt;」與「&lt;strong&gt;將變動納入下一個版本&lt;/strong&gt;」的過程。&lt;/p&gt;
 &lt;h2 id="一git-status專案的狀態報告"&gt;一、&lt;code&gt;git status&lt;/code&gt;：專案的狀態報告&lt;/h2&gt;
@@ -223,7 +245,8 @@ Git 會依據 &lt;strong&gt;Local → Global → System&lt;/strong&gt; 的順序
 &lt;p&gt;想像一下，身為一個文案企劃，你正在修改一份重要文件，結果發現最新版本改得一團糟，想要回到兩天前的雛形文件，卻不知道該怎麼辦。或者你和同事共同編輯一份文件，最終發現兩人的版本內容差異太大，無法順利合併。當你與客戶討論合約內容時，雙方針對合約中的某一行內容各執己見，無法追溯歷史紀錄&amp;hellip;這些情境是不是聽起來很熟悉？&lt;/p&gt;
 &lt;p&gt;不論你是工程師、設計師、小編、業務，這些問題都可能發生在你的日常工作中。&lt;strong&gt;Git 其實不只是一個程式碼的版本控制工具，它更像是一台「數位時光機」&lt;/strong&gt;，能為你處理過的任何檔案（如 Word 文件、設計稿、企劃書等）留下修改紀錄。它讓你不僅能隨時回到過去的任何一個版本，還能有效地與他人協同工作，確保檔案不會混亂。&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;版本控制是一種強大的專案管理工具，它能&lt;strong&gt;比較每次版本差異&lt;/strong&gt;、&lt;strong&gt;追蹤修改依據&lt;/strong&gt;、並&lt;strong&gt;提升協作效率&lt;/strong&gt;，對於現代數位工作者而言至關重要。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;版本控制是一種強大的專案管理工具，它能&lt;strong&gt;比較每次版本差異&lt;/strong&gt;、&lt;strong&gt;追蹤修改依據&lt;/strong&gt;、並&lt;strong&gt;提升協作效率&lt;/strong&gt;，對於現代數位工作者而言至關重要。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h3 id="版本控制工具大致核心方式分成兩類"&gt;版本控制工具大致核心方式分成兩類&lt;/h3&gt;
 &lt;p&gt;版本控制工具大致核心方式分成兩類：集中式的版本控制系統（Centralized Version Control Sytem）和分散式的版本控制系統（Distributed Version Control System）。
 而&lt;strong&gt;Git 是其中一種實現「分散式版本控制」的工具！&lt;/strong&gt;&lt;/p&gt;
@@ -334,4 +357,5 @@ Git 會依據 &lt;strong&gt;Local → Global → System&lt;/strong&gt; 的順序
 &lt;li&gt;&lt;a href="https://echoHaku.github.io/posts/post_git_5/"&gt;Git 系列分享 - p.3 第一次使用 Git：專案初始化 git init&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://echoHaku.github.io/posts/post_git_6/"&gt;Git 系列分享 - p.4 你是誰？git config 的配置與層級&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://echoHaku.github.io/posts/post_git_7/"&gt;Git 系列分享 - p.5 檔案追蹤並納入紀錄！（git status、git add）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://echoHaku.github.io/posts/post_git_8/"&gt;Git 系列分享 - p.6 正式提交一個commit囉&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</description></item></channel></rss>
