@@ -358,4 +358,5 @@ Git 會依據 &lt;strong&gt;Local → Global → System&lt;/strong&gt; 的順序
 &lt;li&gt;&lt;a href="https://echoHaku.github.io/posts/post_git_6/"&gt;Git 系列分享 - p.4 你是誰？git config 的配置與層級&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://echoHaku.github.io/posts/post_git_7/"&gt;Git 系列分享 - p.5 檔案追蹤並納入紀錄！（git status、git add）&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://echoHaku.github.io/posts/post_git_8/"&gt;Git 系列分享 - p.6 正式提交一個commit囉&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://echoHaku.github.io/posts/post_git_9/"&gt;Git 系列分享 - p.7 版本控制的篩選器 - .gitignore 的使用與規則&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</description></item></channel></rss>

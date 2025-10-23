@@ -1,4 +1,44 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on ECHOHAKU BLOG</title><link>https://echoHaku.github.io/posts/</link><description>Recent content in Posts on ECHOHAKU BLOG</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Wed, 22 Oct 2025 09:24:01 +0800</lastBuildDate><atom:link href="https://echoHaku.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Git 系列分享 - p.6 正式提交一個commit囉</title><link>https://echoHaku.github.io/posts/post_git_8/</link><pubDate>Wed, 22 Oct 2025 09:24:01 +0800</pubDate><guid>https://echoHaku.github.io/posts/post_git_8/</guid><description>&lt;p&gt;在&lt;a href="https://echoHaku.github.io/posts/post_git_7/"&gt;Git 系列分享 - p.5 檔案追蹤並納入紀錄！（git status、git add）&lt;/a&gt;中，我們學會了如何使用 &lt;code&gt;git add&lt;/code&gt; 將變更從工作目錄移動到暫存區（Staging Area），完成變更的打包。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on ECHOHAKU BLOG</title><link>https://echoHaku.github.io/posts/</link><description>Recent content in Posts on ECHOHAKU BLOG</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 23 Oct 2025 08:54:10 +0800</lastBuildDate><atom:link href="https://echoHaku.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Git 系列分享 - p.7 版本控制的篩選器 - .gitignore 的使用與規則</title><link>https://echoHaku.github.io/posts/post_git_9/</link><pubDate>Thu, 23 Oct 2025 08:54:10 +0800</pubDate><guid>https://echoHaku.github.io/posts/post_git_9/</guid><description>&lt;p&gt;在&lt;a href="https://echoHaku.github.io/posts/post_git_8/"&gt;Git 系列分享 - p.6 正式提交一個commit囉&lt;/a&gt;中，我們學會了如何使用 &lt;code&gt;git add&lt;/code&gt; 和 &lt;code&gt;git commit&lt;/code&gt; 為專案建立乾淨且有意義的歷史紀錄。&lt;/p&gt;
+&lt;p&gt;然而，在你的專案資料夾中，總是會存在一些你&lt;strong&gt;不希望&lt;/strong&gt;被 Git 納入追蹤、也不想提交到版本庫的檔案。這些檔案會不斷被 &lt;code&gt;git status&lt;/code&gt; 標記為 &lt;code&gt;Untracked files&lt;/code&gt;，造成混亂。這時，我們就需要版本控制的篩選器：&lt;strong&gt;&lt;code&gt;.gitignore&lt;/code&gt;&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id="一gitignore使用情境與目的"&gt;一、&lt;code&gt;.gitignore&lt;/code&gt;：使用情境與目的&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;.gitignore&lt;/code&gt; 是一個簡單的純文字檔案，它告訴 Git &lt;strong&gt;應該忽略哪些檔案和資料夾&lt;/strong&gt;。它的目的在於：&lt;/p&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;目的&lt;/th&gt;
+ &lt;th&gt;說明&lt;/th&gt;
+ &lt;th&gt;檔案範例&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;保護隱私&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;環境變數檔通常包含 API Key、密碼等敏感資訊，必須阻止其上傳。&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;.env&lt;/code&gt;, &lt;code&gt;config.local&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;避免冗餘&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;編譯產生的檔案或大型函式庫可以隨時重新生成，不應浪費空間納入版本庫。&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;*.exe&lt;/code&gt;, &lt;code&gt;*.log&lt;/code&gt;, &lt;code&gt;node_modules/&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;保持乾淨&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;忽略個人編輯器或作業系統產生的暫存檔，讓團隊成員之間不受彼此環境的干擾。&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;.vscode/&lt;/code&gt;, &lt;code&gt;.DS_Store&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id="二如何建立與添加規則"&gt;二、如何建立與添加規則？&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;.gitignore&lt;/code&gt; 檔案必須建立在你的&lt;strong&gt;專案根目錄&lt;/strong&gt;下，這樣 Git 才能在專案的任何地方套用這些規則。建立後，&lt;strong&gt;記得將 &lt;code&gt;.gitignore&lt;/code&gt; 本身加入 Git 追蹤&lt;/strong&gt;，以便團隊成員共享規則。&lt;/p&gt;
+&lt;h3 id="1-命令列-cli-執行"&gt;1. 命令列 (CLI) 執行&lt;/h3&gt;
+&lt;p&gt;在專案根目錄下，你可以使用指令直接建立這個檔案並寫入內容：&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;# 建立一個名為 .gitignore 的檔案
+touch .gitignore
+
+# 編輯檔案，例如加入規則：
+echo &amp;#34;node_modules/&amp;#34; &amp;gt;&amp;gt; .gitignore
+echo &amp;#34;*.log&amp;#34; &amp;gt;&amp;gt; .gitignore
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;或是直接建立完檔案後，將&lt;code&gt;.gitignore&lt;/code&gt; 檔案加入 Git 即可。&lt;/p&gt;</description></item><item><title>Git 系列分享 - p.6 正式提交一個commit囉</title><link>https://echoHaku.github.io/posts/post_git_8/</link><pubDate>Wed, 22 Oct 2025 09:24:01 +0800</pubDate><guid>https://echoHaku.github.io/posts/post_git_8/</guid><description>&lt;p&gt;在&lt;a href="https://echoHaku.github.io/posts/post_git_7/"&gt;Git 系列分享 - p.5 檔案追蹤並納入紀錄！（git status、git add）&lt;/a&gt;中，我們學會了如何使用 &lt;code&gt;git add&lt;/code&gt; 將變更從工作目錄移動到暫存區（Staging Area），完成變更的打包。&lt;/p&gt;
 &lt;p&gt;現在，我們將進行工作流程中的最後一步：&lt;strong&gt;正式提交（Commit）&lt;/strong&gt;，為這次變更留下一個永久且不可磨滅的歷史快照。&lt;/p&gt;
 &lt;h2 id="git-commit為變更留下永久快照"&gt;&lt;code&gt;git commit&lt;/code&gt;：為變更留下永久快照&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;git commit&lt;/code&gt; 是 Git 流程中&lt;strong&gt;最關鍵的動作&lt;/strong&gt;。它會將暫存區的快照&lt;strong&gt;永久寫入&lt;/strong&gt;你的 Git 倉庫 (Repository)，形成專案歷史上的一個&lt;strong&gt;新版本節點&lt;/strong&gt;。&lt;/p&gt;
@@ -358,6 +398,7 @@ Git 會依據 &lt;strong&gt;Local → Global → System&lt;/strong&gt; 的順序
 &lt;li&gt;&lt;a href="https://echoHaku.github.io/posts/post_git_6/"&gt;Git 系列分享 - p.4 你是誰？git config 的配置與層級&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://echoHaku.github.io/posts/post_git_7/"&gt;Git 系列分享 - p.5 檔案追蹤並納入紀錄！（git status、git add）&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://echoHaku.github.io/posts/post_git_8/"&gt;Git 系列分享 - p.6 正式提交一個commit囉&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://echoHaku.github.io/posts/post_git_9/"&gt;Git 系列分享 - p.7 版本控制的篩選器 - .gitignore 的使用與規則&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</description></item><item><title>從孩子身上學到的事：給迷惘大人的一封信〈What adults can learn from kids〉</title><link>https://echoHaku.github.io/posts/post_6/</link><pubDate>Mon, 14 Jul 2025 13:39:28 +0800</pubDate><guid>https://echoHaku.github.io/posts/post_6/</guid><description>&lt;h2 id="why-this"&gt;Why this?&lt;/h2&gt;
 &lt;p&gt;最近的我時常在想：為什麼我總是如此畏首畏尾？做任何事情都瞻前顧後，深怕一不小心就會搞砸一切。為什麼我會如此害怕失敗？為什麼我總是遲疑，明明投入了心力卻又一事無成的感覺？&lt;br&gt;
 但我記得小時候的自己並不是這樣子的啊。那時候的我是一個勇往直前、對什麼事情都充滿興趣的小孩。到底在長大的過程中，我遺失了哪些重要的特質？又該怎麼把它們找回來？&lt;br&gt;
