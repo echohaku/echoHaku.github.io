@@ -1,4 +1,23 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on ECHOHAKU BLOG</title><link>https://echoHaku.github.io/posts/</link><description>Recent content in Posts on ECHOHAKU BLOG</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Wed, 12 Nov 2025 08:57:17 +0800</lastBuildDate><atom:link href="https://echoHaku.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Git 系列分享 Day 10 - 整合工作線：`git merge` 的兩種策略與原理</title><link>https://echoHaku.github.io/posts/post_git_12/</link><pubDate>Wed, 12 Nov 2025 08:57:17 +0800</pubDate><guid>https://echoHaku.github.io/posts/post_git_12/</guid><description>&lt;p&gt;在 &lt;a href="https://echoHaku.github.io/posts/post_git_11/"&gt;Git 系列分享 Day 9 - 你的當前位置：HEAD、DETACHED HEAD 與 ORIG_HEAD&lt;/a&gt; 中，我們學會了如何使用分支來安全地隔離工作。現在，當你在 &lt;code&gt;feature&lt;/code&gt; 分支上的新功能開發完成後，我們就需要將它與主線（&lt;code&gt;main&lt;/code&gt; 分支）的工作&lt;strong&gt;整合&lt;/strong&gt;在一起。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on ECHOHAKU BLOG</title><link>https://echoHaku.github.io/posts/</link><description>Recent content in Posts on ECHOHAKU BLOG</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 13 Nov 2025 08:39:49 +0800</lastBuildDate><atom:link href="https://echoHaku.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Git 系列分享 - p.11 歷史重寫與整理：`git rebase` 和 `squash` 的魔法</title><link>https://echoHaku.github.io/posts/post_git_13/</link><pubDate>Thu, 13 Nov 2025 08:39:49 +0800</pubDate><guid>https://echoHaku.github.io/posts/post_git_13/</guid><description>&lt;p&gt;在&lt;a href="https://echoHaku.github.io/posts/post_git_12/"&gt;Git 系列分享 - p.10 整合工作線：&lt;code&gt;git merge&lt;/code&gt; 的兩種策略與原理&lt;/a&gt;中，我們確認了 &lt;code&gt;git merge&lt;/code&gt; 是將分散的工作線安全整合回主線的最佳且非破壞性（Non-destructive）的方式。
+然而，Git 還有另一種強大的工具，它可以讓你的歷史紀錄看起來像一條筆直的直線、乾淨無比。這個工具就是 &lt;strong&gt;&lt;code&gt;git rebase&lt;/code&gt;&lt;/strong&gt;（歷史重寫）。
+Rebase 並非用來「合併」 Commit，而是用來「&lt;strong&gt;移動&lt;/strong&gt;」或「&lt;strong&gt;重新編排&lt;/strong&gt;」 Commit 的歷史。&lt;/p&gt;
+&lt;h3 id="一git-rebase歷史線的搬家與重寫工程"&gt;一、&lt;code&gt;git rebase&lt;/code&gt;：歷史線的「搬家與重寫」工程&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;git rebase&lt;/code&gt; 顧名思義就是 &lt;strong&gt;Re-base&lt;/strong&gt;，改變分支的基礎（Base）。它的核心目的，是讓你的分支看起來像是從目標分支的&lt;strong&gt;最新 Commit 之後才開始開發的&lt;/strong&gt;。（也就是你的修改會在原分支的最後）&lt;/p&gt;
+&lt;h4 id="1-rebase-的原理與比喻"&gt;1. Rebase 的原理與比喻&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;比喻：&lt;/strong&gt; 想像你有一張藍色便利貼（&lt;code&gt;feature&lt;/code&gt; 分支），它本來貼在日記的第 5 頁（舊 Commit）。現在，主線（&lt;code&gt;main&lt;/code&gt;）日記已經寫到了第 10 頁。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Merge 的做法：&lt;/strong&gt; 產生一張「合併」頁面（第 11 頁），同時指著第 10 頁和藍色便利貼。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Rebase 的做法：&lt;/strong&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;拆下：&lt;/strong&gt; 把藍色便利貼上的內容（你的 Commit 紀錄）&lt;strong&gt;暫時拆下來&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;重抄：&lt;/strong&gt; 把這些內容&lt;strong&gt;一頁一頁地&lt;/strong&gt;，按照順序重新抄寫到日記本的最新頁面（第 10 頁）後面。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;移動：&lt;/strong&gt; 藍色便利貼（&lt;code&gt;feature&lt;/code&gt; 指標）現在貼在新的第 13 頁（新的 Commit）。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;結果：&lt;/strong&gt; 你的 &lt;code&gt;feature&lt;/code&gt; 分支看起來是從第 10 頁直接往後接的，歷史記錄變成一條筆直的直線。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id="2-rebase-的核心差異重寫歷史"&gt;2. Rebase 的核心差異：重寫歷史&lt;/h4&gt;
+&lt;p&gt;Rebase 在重抄 Commit 內容時，會產生&lt;strong&gt;全新的 Commit SHA 雜湊值&lt;/strong&gt;（即新的版本編號）。&lt;/p&gt;</description></item><item><title>Git 系列分享 - p.10 整合工作線：`git merge` 的兩種策略與原理</title><link>https://echoHaku.github.io/posts/post_git_12/</link><pubDate>Wed, 12 Nov 2025 08:57:17 +0800</pubDate><guid>https://echoHaku.github.io/posts/post_git_12/</guid><description>&lt;p&gt;在 &lt;a href="https://echoHaku.github.io/posts/post_git_11/"&gt;Git 系列分享 - p.9 你的當前位置：HEAD、DETACHED HEAD 與 ORIG_HEAD&lt;/a&gt; 中，我們學會了如何使用分支來安全地隔離工作。現在，當你在 &lt;code&gt;feature&lt;/code&gt; 分支上的新功能開發完成後，我們就需要將它與主線（&lt;code&gt;main&lt;/code&gt; 分支）的工作&lt;strong&gt;整合&lt;/strong&gt;在一起。&lt;/p&gt;
 &lt;p&gt;這個「整合」的動作，就是由 &lt;strong&gt;&lt;code&gt;git merge&lt;/code&gt;&lt;/strong&gt; 指令來完成的。&lt;/p&gt;
 &lt;h3 id="一git-merge-的目的將分散的工作線匯集"&gt;一、&lt;code&gt;git merge&lt;/code&gt; 的目的：將分散的工作線匯集&lt;/h3&gt;
 &lt;p&gt;&lt;code&gt;git merge&lt;/code&gt; 的核心目的只有一個：將目標分支（通常是你的新功能分支）的歷史紀錄，融合到當前你所在的分支（通常是主線 &lt;code&gt;main&lt;/code&gt;）中。&lt;/p&gt;
@@ -300,7 +319,7 @@ echo &amp;#34;*.log&amp;#34; &amp;gt;&amp;gt; .gitignore
 &lt;p&gt;&lt;strong&gt;優先順序與應用情境&lt;/strong&gt;&lt;br&gt;
 Git 會依據 &lt;strong&gt;Local → Global → System&lt;/strong&gt; 的順序來讀取設定。&lt;br&gt;
 例如，如果你在 Global 層級設定了個人 Email，但在某個專案（Local 層級）設定了公司 Email，則該專案會&lt;strong&gt;優先使用&lt;/strong&gt; Local 層級設定的公司 Email。&lt;br&gt;
-這樣可以讓你在一台電腦同時去使用兩組或以上的git設定！&lt;/p&gt;</description></item><item><title>Git 系列分享 - p.3 第一次使用 Git：專案初始化 git init</title><link>https://echoHaku.github.io/posts/post_git_5/</link><pubDate>Wed, 08 Oct 2025 09:11:34 +0800</pubDate><guid>https://echoHaku.github.io/posts/post_git_5/</guid><description>&lt;p&gt;在&lt;a href="https://echoHaku.github.io/posts/post_git_4/"&gt;Git 系列分享Day 2 - Git 對於修改的文件是怎麼劃分的呢？&lt;/a&gt; 我們了解了 Git 如何將專案劃分為工作目錄、暫存區和 Git 倉庫這三個區域。現在，讓我們開始實戰，學習如何讓 Git 開始管理你的專案！&lt;/p&gt;
+這樣可以讓你在一台電腦同時去使用兩組或以上的git設定！&lt;/p&gt;</description></item><item><title>Git 系列分享 - p.3 第一次使用 Git：專案初始化 git init</title><link>https://echoHaku.github.io/posts/post_git_5/</link><pubDate>Wed, 08 Oct 2025 09:11:34 +0800</pubDate><guid>https://echoHaku.github.io/posts/post_git_5/</guid><description>&lt;p&gt;在&lt;a href="https://echoHaku.github.io/posts/post_git_4/"&gt;Git 系列分享 - p.2 Git 對於修改的文件是怎麼劃分的呢？&lt;/a&gt; 我們了解了 Git 如何將專案劃分為工作目錄、暫存區和 Git 倉庫這三個區域。現在，讓我們開始實戰，學習如何讓 Git 開始管理你的專案！&lt;/p&gt;
 &lt;h2 id="啟動版本控制git-init-的奧秘"&gt;啟動版本控制：&lt;code&gt;git init&lt;/code&gt; 的奧秘&lt;/h2&gt;
 &lt;p&gt;要讓 Git 接管一個資料夾，使其具備版本控制能力，我們需要做的第一步就是&lt;strong&gt;初始化 (Initialize) 專案&lt;/strong&gt;。這個動作是透過 &lt;code&gt;git init&lt;/code&gt; 指令來完成的。&lt;/p&gt;
 &lt;p&gt;當你執行 &lt;code&gt;git init&lt;/code&gt; 之後，Git 就會在這個資料夾內建立它的「資料庫」，專案才正式進入 Git 的管理流程。&lt;/p&gt;
@@ -335,7 +354,7 @@ Git 會依據 &lt;strong&gt;Local → Global → System&lt;/strong&gt; 的順序
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;視覺化工具 (GUI) 執行&lt;/strong&gt;
-若你不習慣使用指令，可以透過視覺化工具來操作。這對於害怕代碼的初學者來說是非常友好的替代方案。下方以&lt;code&gt;Sourcetree&lt;/code&gt;為例&lt;/p&gt;</description></item><item><title>Git 系列分享 - p.2 Git 對於修改的文件是怎麼劃分的呢？</title><link>https://echoHaku.github.io/posts/post_git_4/</link><pubDate>Fri, 03 Oct 2025 09:12:47 +0800</pubDate><guid>https://echoHaku.github.io/posts/post_git_4/</guid><description>&lt;p&gt;如同 &lt;a href="https://echoHaku.github.io/posts/post_git_3/"&gt;Git 系列分享Day 1 - Git是什麼？&lt;/a&gt; 所述，Git 是一種強大的版本控制工具。然而，Git 並不會將你所有的修改&lt;strong&gt;自動&lt;/strong&gt;納入版本紀錄。&lt;/p&gt;
+若你不習慣使用指令，可以透過視覺化工具來操作。這對於害怕代碼的初學者來說是非常友好的替代方案。下方以&lt;code&gt;Sourcetree&lt;/code&gt;為例&lt;/p&gt;</description></item><item><title>Git 系列分享 - p.2 Git 對於修改的文件是怎麼劃分的呢？</title><link>https://echoHaku.github.io/posts/post_git_4/</link><pubDate>Fri, 03 Oct 2025 09:12:47 +0800</pubDate><guid>https://echoHaku.github.io/posts/post_git_4/</guid><description>&lt;p&gt;如同 &lt;a href="https://echoHaku.github.io/posts/post_git_3/"&gt;Git 系列分享 - p.1 Git是什麼？&lt;/a&gt; 所述，Git 是一種強大的版本控制工具。然而，Git 並不會將你所有的修改&lt;strong&gt;自動&lt;/strong&gt;納入版本紀錄。&lt;/p&gt;
 &lt;p&gt;要理解 Git 如何追蹤和儲存你的工作，必須先了解它將一個專案劃分為的&lt;strong&gt;三個核心工作區域（Three States）&lt;/strong&gt;。&lt;/p&gt;
 &lt;h2 id="git-的三個工作區域與主要流程"&gt;Git 的三個工作區域與主要流程&lt;/h2&gt;
 &lt;p&gt;Git 的版本控制流程可以被簡化為三個步驟，文件會依序在三個區域間流動：&lt;/p&gt;
@@ -537,7 +556,7 @@ Git 會依據 &lt;strong&gt;Local → Global → System&lt;/strong&gt; 的順序
 &lt;li&gt;&lt;a href="https://echoHaku.github.io/posts/post_git_9/"&gt;Git 系列分享 - p.7 版本控制的篩選器 - .gitignore 的使用與規則&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://echoHaku.github.io/posts/post_git_10/"&gt;Git 系列分享 - p.8 Git 的核心力量 - 分支 (Branch)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://echoHaku.github.io/posts/post_git_11/"&gt;Git 系列分享 - p.9 你的當前位置：HEAD、DETACHED HEAD 與 ORIG_HEAD&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://echoHaku.github.io/posts/post_git_12/"&gt;Git 系列分享 Day 10 - 整合工作線：&lt;code&gt;git merge&lt;/code&gt; 的兩種策略與原理&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://echoHaku.github.io/posts/post_git_12/"&gt;Git 系列分享 - p.10 整合工作線：&lt;code&gt;git merge&lt;/code&gt; 的兩種策略與原理&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</description></item><item><title>從孩子身上學到的事：給迷惘大人的一封信〈What adults can learn from kids〉</title><link>https://echoHaku.github.io/posts/post_6/</link><pubDate>Mon, 14 Jul 2025 13:39:28 +0800</pubDate><guid>https://echoHaku.github.io/posts/post_6/</guid><description>&lt;h2 id="why-this"&gt;Why this?&lt;/h2&gt;
 &lt;p&gt;最近的我時常在想：為什麼我總是如此畏首畏尾？做任何事情都瞻前顧後，深怕一不小心就會搞砸一切。為什麼我會如此害怕失敗？為什麼我總是遲疑，明明投入了心力卻又一事無成的感覺？&lt;br&gt;
 但我記得小時候的自己並不是這樣子的啊。那時候的我是一個勇往直前、對什麼事情都充滿興趣的小孩。到底在長大的過程中，我遺失了哪些重要的特質？又該怎麼把它們找回來？&lt;br&gt;
