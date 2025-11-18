@@ -557,4 +557,6 @@ Git 會依據 &lt;strong&gt;Local → Global → System&lt;/strong&gt; 的順序
 &lt;li&gt;&lt;a href="https://echoHaku.github.io/posts/post_git_10/"&gt;Git 系列分享 - p.8 Git 的核心力量 - 分支 (Branch)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://echoHaku.github.io/posts/post_git_11/"&gt;Git 系列分享 - p.9 你的當前位置：HEAD、DETACHED HEAD 與 ORIG_HEAD&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://echoHaku.github.io/posts/post_git_12/"&gt;Git 系列分享 - p.10 整合工作線：&lt;code&gt;git merge&lt;/code&gt; 的兩種策略與原理&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://echoHaku.github.io/posts/post_git_13/"&gt;Git 系列分享 - p.11 歷史重寫與整理：&lt;code&gt;git rebase&lt;/code&gt; 和 &lt;code&gt;squash&lt;/code&gt; 的魔法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://echoHaku.github.io/posts/post_git_14/"&gt;Git 系列分享 - p.12 歷史控制：&lt;code&gt;git reset&lt;/code&gt;、&lt;code&gt;git revert&lt;/code&gt; 與 &lt;code&gt;git cherry-pick&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</description></item></channel></rss>
