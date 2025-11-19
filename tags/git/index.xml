@@ -1,4 +1,110 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Git on ECHOHAKU BLOG</title><link>https://echoHaku.github.io/tags/git/</link><description>Recent content in Git on ECHOHAKU BLOG</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 13 Nov 2025 08:39:49 +0800</lastBuildDate><atom:link href="https://echoHaku.github.io/tags/git/index.xml" rel="self" type="application/rss+xml"/><item><title>Git 系列分享 - p.11 歷史重寫與整理：`git rebase` 和 `squash` 的魔法</title><link>https://echoHaku.github.io/posts/post_git_13/</link><pubDate>Thu, 13 Nov 2025 08:39:49 +0800</pubDate><guid>https://echoHaku.github.io/posts/post_git_13/</guid><description>&lt;p&gt;在&lt;a href="https://echoHaku.github.io/posts/post_git_12/"&gt;Git 系列分享 - p.10 整合工作線：&lt;code&gt;git merge&lt;/code&gt; 的兩種策略與原理&lt;/a&gt;中，我們確認了 &lt;code&gt;git merge&lt;/code&gt; 是將分散的工作線安全整合回主線的最佳且非破壞性（Non-destructive）的方式。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Git on ECHOHAKU BLOG</title><link>https://echoHaku.github.io/tags/git/</link><description>Recent content in Git on ECHOHAKU BLOG</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Wed, 19 Nov 2025 08:58:13 +0800</lastBuildDate><atom:link href="https://echoHaku.github.io/tags/git/index.xml" rel="self" type="application/rss+xml"/><item><title>Git 系列分享 - p.13 遠端協作的橋樑：`git remote`、`git pull` 與 `git push`</title><link>https://echoHaku.github.io/posts/post_git_15/</link><pubDate>Wed, 19 Nov 2025 08:58:13 +0800</pubDate><guid>https://echoHaku.github.io/posts/post_git_15/</guid><description>&lt;p&gt;經過前面幾篇的學習，我們已經掌握了在&lt;strong&gt;本地倉庫&lt;/strong&gt;中管理歷史、分支和 Commit 的各種技巧。然而，Git 的真正強大之處在於其&lt;strong&gt;分散式&lt;/strong&gt;的特性，讓多人可以在不同的地方安全地協作。&lt;/p&gt;
+&lt;p&gt;今天，我們將探討如何將本地的成果與 GitHub、GitLab 或 Bitbucket 等&lt;strong&gt;遠端倉庫&lt;/strong&gt;（Remote Repository）進行同步。這一切都圍繞著三個核心指令：&lt;code&gt;git remote&lt;/code&gt;、&lt;code&gt;git pull&lt;/code&gt; 和 &lt;code&gt;git push&lt;/code&gt;。&lt;/p&gt;
+&lt;h3 id="一git-remote"&gt;一、&lt;code&gt;git remote&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;git remote&lt;/code&gt; 指令負責管理你的本地 Git 倉庫所認識的遠端 URL 與其「短名」。&lt;/p&gt;
+&lt;h4 id="1-什麼是-remote"&gt;1. 什麼是 Remote？&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Remote（遠端）&lt;/strong&gt;：一個 Git 倉庫的 URL。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Shortname（短名）&lt;/strong&gt;：代表遠端 URL 的代稱，例如：&lt;code&gt;origin&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;預設名稱 &lt;code&gt;origin&lt;/code&gt;：&lt;/strong&gt; 當你使用 &lt;code&gt;git clone&lt;/code&gt; 時（這個指令會在下一篇說到，只要想像成是把遠端的東西複製到本地端就可以了），Git 會自動建立 &lt;code&gt;origin&lt;/code&gt; 指向原始來源。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id="2-常見情境與指令"&gt;2. 常見情境與指令&lt;/h4&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;指令&lt;/th&gt;
+ &lt;th&gt;作用說明&lt;/th&gt;
+ &lt;th&gt;範例情境&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;git remote&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;列出&lt;/strong&gt;所有已配置的遠端短名。&lt;/td&gt;
+ &lt;td&gt;想知道你的專案可以同步到哪些地方。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;git remote -v&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;列出&lt;/strong&gt;遠端短名及其對應的 URL（含 Fetch 和 Push 網址）。&lt;/td&gt;
+ &lt;td&gt;想確認 &lt;code&gt;origin&lt;/code&gt; 實際上指向哪個 GitHub 連結。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;git remote add &amp;lt;name&amp;gt; &amp;lt;url&amp;gt;&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;新增&lt;/strong&gt;一個遠端倉庫。&lt;/td&gt;
+ &lt;td&gt;你想將專案同時備份到 GitHub (&lt;code&gt;origin&lt;/code&gt;) 和 GitLab (&lt;code&gt;backup&lt;/code&gt;)。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;git remote remove &amp;lt;name&amp;gt;&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;刪除&lt;/strong&gt;一個遠端連接。&lt;/td&gt;
+ &lt;td&gt;某個遠端倉庫不再使用或網址失效。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;git remote rename &amp;lt;old&amp;gt; &amp;lt;new&amp;gt;&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;重新命名&lt;/strong&gt;遠端短名稱。&lt;/td&gt;
+ &lt;td&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id="二git-pull從遠端下載並整合更新"&gt;二、&lt;code&gt;git pull&lt;/code&gt;：從遠端「下載並整合更新」&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;git pull&lt;/code&gt; 的功能是從遠端倉庫&lt;strong&gt;抓取&lt;/strong&gt;（Fetch）最新的變更，並將這些變更與你的&lt;strong&gt;本地工作&lt;/strong&gt;進行&lt;strong&gt;整合&lt;/strong&gt;。&lt;/p&gt;</description></item><item><title>Git 系列分享 - p.12 歷史控制：`git reset`、`git revert` 與 `git cherry-pick`</title><link>https://echoHaku.github.io/posts/post_git_14/</link><pubDate>Tue, 18 Nov 2025 08:54:43 +0800</pubDate><guid>https://echoHaku.github.io/posts/post_git_14/</guid><description>&lt;p&gt;在&lt;a href="https://echoHaku.github.io/posts/post_git_13/"&gt;Git 系列分享 - p.11 歷史重寫與整理：&lt;code&gt;git rebase&lt;/code&gt; 和 &lt;code&gt;squash&lt;/code&gt; 的魔法&lt;/a&gt;中，我們學會了如何使用 &lt;code&gt;git rebase&lt;/code&gt; 來清理本地的 Commit 歷史。今天，我們將探討另外三個控制 Git 歷史的關鍵指令，它們分別代表了三種處理 Commit 的態度：&lt;strong&gt;破壞性撤銷、安全撤銷，以及精準複製。&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id="一git-reset破壞性撤銷時光倒流並撕掉頁面"&gt;一、&lt;code&gt;git reset&lt;/code&gt;：破壞性撤銷（時光倒流並撕掉頁面）&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;git reset&lt;/code&gt; 是一個強大的「時光機」指令，它能將你的 &lt;code&gt;HEAD&lt;/code&gt;（書籤）和當前分支指標（便利貼）&lt;strong&gt;移回&lt;/strong&gt;到歷史中的某個 Commit。&lt;/p&gt;
+&lt;h4 id="1-定義與比喻"&gt;1. 定義與比喻&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;定義：&lt;/strong&gt; &lt;code&gt;git reset&lt;/code&gt; 會移動 &lt;code&gt;HEAD&lt;/code&gt; 和分支指標，並根據不同的模式（&lt;code&gt;--soft&lt;/code&gt;, &lt;code&gt;--mixed&lt;/code&gt;, &lt;code&gt;--hard&lt;/code&gt;），來處理被「撤銷」 Commit 中的內容。它是一種&lt;strong&gt;破壞性操作&lt;/strong&gt;，因為它會讓後面的 Commit 看起來像是從來沒發生過。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;書籤比喻：&lt;/strong&gt; 想像你寫日記時發現寫錯了，你將&lt;strong&gt;書籤（HEAD）退回到前幾頁，並且可能將後面的頁面（Commit）全部撕掉或塗改&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id="2-三種模式處理內容的方式"&gt;2. 三種模式（處理內容的方式）&lt;/h4&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;模式&lt;/th&gt;
+ &lt;th&gt;作用於 Commit&lt;/th&gt;
+ &lt;th&gt;作用於暫存區&lt;/th&gt;
+ &lt;th&gt;作用於工作目錄&lt;/th&gt;
+ &lt;th&gt;比喻（被撕掉頁面上的內容）&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;--soft&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;退回&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;保留&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;保留&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;內容已用原子筆寫完，但你讓書籤退回，告訴自己「這一頁不算數」，內容留在桌上。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;--mixed&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;退回&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;清除&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;保留&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;內容從原子筆稿退回成&lt;strong&gt;鉛筆草稿&lt;/strong&gt;（清除暫存區），內容留在桌上。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;--hard&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;退回&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;清除&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;清除&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;直接撕掉頁面&lt;/strong&gt;，丟進垃圾桶（清除工作目錄和暫存區）。&lt;strong&gt;最危險，請謹慎使用！&lt;/strong&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4 id="3-發生情境與指令"&gt;3. 發生情境與指令&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;情境：&lt;/strong&gt; 發現最新的 Commit &lt;strong&gt;寫錯了&lt;/strong&gt;，且該 Commit &lt;strong&gt;尚未推送到遠端（未共享）&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;指令：&lt;/strong&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;# 常用：撤銷最近一次 Commit，保留內容在工作目錄中繼續修改
+git reset HEAD~1 
+
+# 危險：完全拋棄最近三次 Commit 的所有內容
+git reset --hard HEAD~3 
+
+# 撤銷所有暫存區內容，回到工作目錄（清除鉛筆稿，保留內容在紙上）
+git reset HEAD &amp;lt;file&amp;gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="二git-revert安全撤銷承認錯誤並寫一篇新的日記"&gt;二、&lt;code&gt;git revert&lt;/code&gt;：安全撤銷（承認錯誤並寫一篇新的日記）&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;git revert&lt;/code&gt; 是一種&lt;strong&gt;非破壞性&lt;/strong&gt;的撤銷方式。它不會移動 &lt;code&gt;HEAD&lt;/code&gt; 或刪除任何 Commit，而是透過新增一個 Commit 來&lt;strong&gt;抵銷&lt;/strong&gt;歷史中的某個變更。&lt;/p&gt;</description></item><item><title>Git 系列分享 - p.11 歷史重寫與整理：`git rebase` 和 `squash` 的魔法</title><link>https://echoHaku.github.io/posts/post_git_13/</link><pubDate>Thu, 13 Nov 2025 08:39:49 +0800</pubDate><guid>https://echoHaku.github.io/posts/post_git_13/</guid><description>&lt;p&gt;在&lt;a href="https://echoHaku.github.io/posts/post_git_12/"&gt;Git 系列分享 - p.10 整合工作線：&lt;code&gt;git merge&lt;/code&gt; 的兩種策略與原理&lt;/a&gt;中，我們確認了 &lt;code&gt;git merge&lt;/code&gt; 是將分散的工作線安全整合回主線的最佳且非破壞性（Non-destructive）的方式。
 然而，Git 還有另一種強大的工具，它可以讓你的歷史紀錄看起來像一條筆直的直線、乾淨無比。這個工具就是 &lt;strong&gt;&lt;code&gt;git rebase&lt;/code&gt;&lt;/strong&gt;（歷史重寫）。
 Rebase 並非用來「合併」 Commit，而是用來「&lt;strong&gt;移動&lt;/strong&gt;」或「&lt;strong&gt;重新編排&lt;/strong&gt;」 Commit 的歷史。&lt;/p&gt;
 &lt;h3 id="一git-rebase歷史線的搬家與重寫工程"&gt;一、&lt;code&gt;git rebase&lt;/code&gt;：歷史線的「搬家與重寫」工程&lt;/h3&gt;
@@ -559,4 +665,5 @@ Git 會依據 &lt;strong&gt;Local → Global → System&lt;/strong&gt; 的順序
 &lt;li&gt;&lt;a href="https://echoHaku.github.io/posts/post_git_12/"&gt;Git 系列分享 - p.10 整合工作線：&lt;code&gt;git merge&lt;/code&gt; 的兩種策略與原理&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://echoHaku.github.io/posts/post_git_13/"&gt;Git 系列分享 - p.11 歷史重寫與整理：&lt;code&gt;git rebase&lt;/code&gt; 和 &lt;code&gt;squash&lt;/code&gt; 的魔法&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://echoHaku.github.io/posts/post_git_14/"&gt;Git 系列分享 - p.12 歷史控制：&lt;code&gt;git reset&lt;/code&gt;、&lt;code&gt;git revert&lt;/code&gt; 與 &lt;code&gt;git cherry-pick&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://echoHaku.github.io/posts/post_git_15/"&gt;Git 系列分享 - p.13 遠端協作的橋樑：&lt;code&gt;git remote&lt;/code&gt;、&lt;code&gt;git pull&lt;/code&gt; 與 &lt;code&gt;git push&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</description></item></channel></rss>
