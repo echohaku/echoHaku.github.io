@@ -1,4 +1,33 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Git on ECHOHAKU BLOG</title><link>https://echoHaku.github.io/tags/git/</link><description>Recent content in Git on ECHOHAKU BLOG</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Tue, 25 Nov 2025 09:24:00 +0800</lastBuildDate><atom:link href="https://echoHaku.github.io/tags/git/index.xml" rel="self" type="application/rss+xml"/><item><title>Git 系列分享 - p.15 `git flow`</title><link>https://echoHaku.github.io/posts/post_git_17/</link><pubDate>Tue, 25 Nov 2025 09:24:00 +0800</pubDate><guid>https://echoHaku.github.io/posts/post_git_17/</guid><description>&lt;p&gt;在前面幾篇，我們掌握了如何使用 &lt;code&gt;git clone&lt;/code&gt; 取得程式碼，並透過 &lt;code&gt;git pull&lt;/code&gt; 和 &lt;code&gt;git push&lt;/code&gt; 進行同步。然而，當一個團隊同時開發數十個功能時，如果每個人都直接在 &lt;code&gt;main&lt;/code&gt; 或 &lt;code&gt;master&lt;/code&gt; 分支上操作，專案歷史將會一團混亂。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Git on ECHOHAKU BLOG</title><link>https://echoHaku.github.io/tags/git/</link><description>Recent content in Git on ECHOHAKU BLOG</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Wed, 26 Nov 2025 08:49:15 +0800</lastBuildDate><atom:link href="https://echoHaku.github.io/tags/git/index.xml" rel="self" type="application/rss+xml"/><item><title>Git 系列分享 - p.16 效率小工具：Stash, Tag, Grep與 Reflog</title><link>https://echoHaku.github.io/posts/post_git_18/</link><pubDate>Wed, 26 Nov 2025 08:49:15 +0800</pubDate><guid>https://echoHaku.github.io/posts/post_git_18/</guid><description>&lt;p&gt;在前面的篇章中，我們已經掌握了分支、合併、重寫歷史和遠端協作。本篇將介紹四個能顯著提升個人開發效率和專案穩定性的工具：&lt;strong&gt;&lt;code&gt;stash&lt;/code&gt; 應對緊急插單、&lt;code&gt;tag&lt;/code&gt; 標記正式版本、&lt;code&gt;grep&lt;/code&gt; 快速定位內容，以及 &lt;code&gt;reflog&lt;/code&gt; 拯救失誤。&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id="一git-stash臨時置物櫃應對緊急插單"&gt;一、&lt;code&gt;git stash&lt;/code&gt;：臨時置物櫃（應對緊急插單）&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;git stash&lt;/code&gt; 是 Git 用來應對「緊急情況」或「中斷工作」的最佳工具。它允許你在不 Commit 的情況下，暫存當前所有&lt;strong&gt;已追蹤&lt;/strong&gt;（Tracked）的變更（包括暫存區和工作目錄），讓你的工作目錄回到乾淨的狀態。&lt;/p&gt;
+&lt;h4 id="1-定義"&gt;1. 定義&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;定義：&lt;/strong&gt; 將工作目錄和暫存區中未提交的變更，儲存到一個私有的「堆棧（Stack）」中。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;注意：&lt;/strong&gt; 預設情況下，&lt;code&gt;git stash&lt;/code&gt; 並不會處理&lt;strong&gt;那些從未被 &lt;code&gt;git add&lt;/code&gt; 過的&lt;/strong&gt;新增檔案 (Untracked Files)，也就是新增的檔案並不會因為git stash 而被清掉。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id="2-發生情境與指令"&gt;2. 發生情境與指令&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;情境 A (緊急切換)：&lt;/strong&gt; 你正在開發功能 A，但老闆要求你立即修復一個緊急 Bug。你需要切換分支，但不想 Commit 進行中的 A 程式碼。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;情境 B (Pull 衝突)：&lt;/strong&gt; 你的本地檔案有修改，但需要 &lt;code&gt;git pull&lt;/code&gt; 遠端更新。Git 會拒絕 &lt;code&gt;pull&lt;/code&gt;，因為怕覆蓋你的本地變更。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;指令：&lt;/strong&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;# 將所有變更（未暫存+已暫存）儲存起來，工作目錄變乾淨
+git stash push -m &amp;#34;功能A未完成的進度&amp;#34;
+
+# 列出所有已儲存的暫存
+git stash list 
+
+# 應用（恢復）最新的暫存，但保留暫存紀錄
+git stash apply 
+
+# 應用並刪除最新的暫存（最常用）
+git stash pop
+
+# 儲存特定檔案：Stash 通常儲存所有內容，要儲存特定檔案需要配合 git stash push -- &amp;lt;file&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="二git-tag頒發正式證書標記穩定版本"&gt;二、&lt;code&gt;git tag&lt;/code&gt;：頒發正式證書（標記穩定版本）&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;git tag&lt;/code&gt; 用於為歷史中的某個特定 Commit 打上一個「&lt;strong&gt;永久的、有意義的名稱標籤&lt;/strong&gt;」。在 Git Flow 中，它通常在 &lt;code&gt;main&lt;/code&gt; 分支上發佈新版本時使用。&lt;/p&gt;</description></item><item><title>Git 系列分享 - p.15 `git flow`</title><link>https://echoHaku.github.io/posts/post_git_17/</link><pubDate>Tue, 25 Nov 2025 09:24:00 +0800</pubDate><guid>https://echoHaku.github.io/posts/post_git_17/</guid><description>&lt;p&gt;在前面幾篇，我們掌握了如何使用 &lt;code&gt;git clone&lt;/code&gt; 取得程式碼，並透過 &lt;code&gt;git pull&lt;/code&gt; 和 &lt;code&gt;git push&lt;/code&gt; 進行同步。然而，當一個團隊同時開發數十個功能時，如果每個人都直接在 &lt;code&gt;main&lt;/code&gt; 或 &lt;code&gt;master&lt;/code&gt; 分支上操作，專案歷史將會一團混亂。&lt;/p&gt;
 &lt;p&gt;本篇將介紹業界最常用的&lt;strong&gt;結構化開發模型&lt;/strong&gt;—— &lt;strong&gt;Git Flow&lt;/strong&gt;，以及它如何搭配&lt;strong&gt;審核機制&lt;/strong&gt; &lt;strong&gt;Pull Request (PR)&lt;/strong&gt; 來確保程式碼品質與穩定性。&lt;/p&gt;
 &lt;h2 id="一git-flow結構化的分支管理模型"&gt;一、Git Flow：結構化的分支管理模型&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;定義：&lt;/strong&gt; Git Flow 通過定義五種不同角色的分支，來規範程式碼從開發、整合、發佈到修復的整個生命週期。&lt;/p&gt;
@@ -751,4 +780,5 @@ Git 會依據 &lt;strong&gt;Local → Global → System&lt;/strong&gt; 的順序
 &lt;li&gt;&lt;a href="https://echoHaku.github.io/posts/post_git_15/"&gt;Git 系列分享 - p.13 遠端協作的橋樑：&lt;code&gt;git remote&lt;/code&gt;、&lt;code&gt;git pull&lt;/code&gt; 與 &lt;code&gt;git push&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://echoHaku.github.io/posts/post_git_16/"&gt;Git 系列分享 - p.14 啟動協作：git fork 與 git clone 的差異&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://echoHaku.github.io/posts/post_git_17/"&gt;Git 系列分享 - p.15 `git flow&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://echoHaku.github.io/posts/post_git_18/"&gt;Git 系列分享 - p.16 效率小工具：Stash, Tag, Grep與 Reflog&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</description></item></channel></rss>
